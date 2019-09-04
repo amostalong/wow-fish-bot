@@ -4,6 +4,7 @@ import time
 import numpy as np
 import cv2
 import sys
+import random
 from win32gui import GetWindowText, GetForegroundWindow, GetWindowRect
 from PyQt5 import QtGui, QtCore, QtWidgets
 
@@ -25,9 +26,9 @@ class FishBotTray(QtCore.QThread):
     def run(self):
         self.icon.showMessage('wow-fish-bot by YECHEZ', 'BOT is READY!\ngithub.com/YECHEZ/wow-fish-bot')
         while self.flag_exit:
-            if GetWindowText(GetForegroundWindow()) != 'World of Warcraft':
+            if GetWindowText(GetForegroundWindow()) != '魔兽世界':
                 self.icon.setToolTip('World of Warcraft no active window !')
-                #print('World of Warcraft no active window !')
+                print('World of Warcraft no active window !')
                 #print('-- New check 2 sec')
                 time.sleep(2)
             else:
@@ -37,7 +38,7 @@ class FishBotTray(QtCore.QThread):
                         self.lastx = 0
                         self.lasty = 0
                         pyautogui.press('1')
-                        #print("Fish on !")
+                        print("Fish on !")
                         self.icon.setToolTip("Fish on !")
                         self.new_cast_time = time.time()
                         self.is_block = True
@@ -77,9 +78,10 @@ class FishBotTray(QtCore.QThread):
                                 pyautogui.mouseDown(button='right')
                                 pyautogui.mouseUp(button='right')
                                 pyautogui.keyUp("shiftleft")
-                                #print("Catch !")
+                                print("Catch !")
                                 self.icon.setToolTip("Catch !")
-                                time.sleep(5)
+                                sleepTime = random.randint(5, 35)
+                                time.sleep(sleepTime)
                         self.lastx = b_x
                         self.lasty = b_y
 
